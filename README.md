@@ -11,6 +11,7 @@
 - [Notional V3 Specification](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing)
 - [Notional V3 Full Pull Request](https://github.com/notional-finance/contracts-v2/pull/107)
 - [Notional V3 Smart Contract Changes Only Diff](https://github.com/notional-finance/contracts-v2/pull/108)
+- [Notional V3 Technical Walkthrough (Video)](https://www.youtube.com/watch?v=e6YbiQkHYrQ)
 - [Notional V2 Docs](https://docs.notional.finance/notional-v2/)
 - [Notional V2 Technical Overview](https://www.youtube.com/watch?v=-8a5kY0QeYY&list=PLnKdM8f8QEJ2lJ59ZjhVCcJvrT056X0Ga)
 - [Notional V2 Technical Blog Posts](https://blog.notional.finance/tag/technical/)
@@ -88,6 +89,13 @@ _____
 
 A: Pausing is acceptable, emergency withdraws from the system would be strictly prohibited. This depends on the external money market that is integrated via IPrimeCashHoldingsOracles.
 
+
+# Running Tests
+
+1. Setup brownie and install hardhat (bin/setup.sh)
+2. Run tests: (bin/runTests.sh)
+
+There are a lot of tests and it make take awhile (it takes a few hours on my M2 Apple Silicon). You can run individual test files via `brownie test [path]` or add the decorator `@pytest.mark.only` to a function and run a file using `brownie test [path] -m only`
 
 # Audit scope
 
