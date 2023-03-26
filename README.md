@@ -161,4 +161,6 @@ A: Pausing is acceptable, emergency withdraws from the system would be strictly 
 
 
 
-# About [project name]
+# About Notional Finance
+
+[Notional Finance](https://notional.finance) is a lending protocol on Ethereum Mainnet. Notional V2 has been in production for over a year and has processed over $750 million in lending and borrowing volume via its fixed rate marketse. Notional V3 is an upgrade to that system which enables variable rate lending and borrowing markets.
