@@ -7,16 +7,16 @@
 
 # Resources
 
-- [[Notional V3 Specification]](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing)
-- [[Notional V3 Full Pull Request]](https://github.com/notional-finance/contracts-v2/pull/107)
-- [[Notional V3 Smart Contract Changes Only Diff]](https://github.com/notional-finance/contracts-v2/pull/108)
-- [[Notional V2 Docs]](https://docs.notional.finance/notional-v2/)
-- [[Notional V2 Technical Overview]](https://www.youtube.com/watch?v=-8a5kY0QeYY&list=PLnKdM8f8QEJ2lJ59ZjhVCcJvrT056X0Ga)
-- [[Notional V2 Technical Blog Posts]](https://blog.notional.finance/tag/technical/)
+- [Notional V3 Specification](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing)
+- [Notional V3 Full Pull Request](https://github.com/notional-finance/contracts-v2/pull/107)
+- [Notional V3 Smart Contract Changes Only Diff](https://github.com/notional-finance/contracts-v2/pull/108)
+- [Notional V2 Docs](https://docs.notional.finance/notional-v2/)
+- [Notional V2 Technical Overview](https://www.youtube.com/watch?v=-8a5kY0QeYY&list=PLnKdM8f8QEJ2lJ59ZjhVCcJvrT056X0Ga)
+- [Notional V2 Technical Blog Posts](https://blog.notional.finance/tag/technical/)
 
-This is an upgrade to a fairly complex protocol that is running in production. A strong understanding of Notional V2 will definitely aid in understanding the changes. This [[pull request]](https://github.com/notional-finance/contracts-v2/pull/107) defines the full scope of changes to the protocol. 
+This is an upgrade to a fairly complex protocol that is running in production. A strong understanding of Notional V2 will definitely aid in understanding the changes. This [pull request](https://github.com/notional-finance/contracts-v2/pull/107) defines the full scope of changes to the protocol. 
 
-It's recommended that auditors take a look at the individual commits in order to understand the nature of the changes. The commits have been rebased into thematic chunks that broadly correlate with the documentation in the [[Notional V3 Specification]](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing).
+It's recommended that auditors take a look at the individual commits in order to understand the nature of the changes. The commits have been rebased into thematic chunks that broadly correlate with the documentation in the [Notional V3 Specification](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing).
 
 
 # On-chain context
