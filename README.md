@@ -97,6 +97,15 @@ A: Pausing is acceptable, emergency withdraws from the system would be strictly 
 
 There are a lot of tests and it make take awhile (it takes a few hours on my M2 Apple Silicon). You can run individual test files via `brownie test [path]` or add the decorator `@pytest.mark.only` to a function and run a file using `brownie test [path] -m only`
 
+You may run into a compilation error on IERC20.sol package in the OpenZeppelin Contracts 3.4.2-solc-0.7 dependency. Change the pragma in that file from:
+
+`pragma solidity ^0.7.0`
+
+to 
+
+`pragma solidity >=0.7.0`
+
+
 # Audit scope
 
 
