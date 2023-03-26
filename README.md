@@ -1,5 +1,5 @@
 
-# [project name] contest details
+# Notional V3 contest details
 
 - Join [Sherlock Discord](https://discord.gg/MABEWyASkp)
 - Submit findings using the issue page in your private contest repo (label issues as med or high)
@@ -7,38 +7,30 @@
 
 # Resources
 
-- [[resource1]](url)
-- [[resource2]](url)
+- [[Notional V3 Specification]](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing)
+- [[Notional V3 Full Pull Request]](https://github.com/notional-finance/contracts-v2/pull/107)
+- [[Notional V3 Smart Contract Changes Only Diff]](https://github.com/notional-finance/contracts-v2/pull/108)
+- [[Notional V2 Docs]](https://docs.notional.finance/notional-v2/)
+- [[Notional V2 Technical Overview]](https://www.youtube.com/watch?v=-8a5kY0QeYY&list=PLnKdM8f8QEJ2lJ59ZjhVCcJvrT056X0Ga)
+- [[Notional V2 Technical Blog Posts]](https://blog.notional.finance/tag/technical/)
+
+This is an upgrade to a fairly complex protocol that is running in production. A strong understanding of Notional V2 will definitely aid in understanding the changes. This [[pull request]](https://github.com/notional-finance/contracts-v2/pull/107) defines the full scope of changes to the protocol. 
+
+It's recommended that auditors take a look at the individual commits in order to understand the nature of the changes. The commits have been rebased into thematic chunks that broadly correlate with the documentation in the [[Notional V3 Specification]](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing).
+
 
 # On-chain context
-
-The README is a **very important** document for the audit. Please fill it out thoroughly and include any other specific info that security experts will need in order to effectively review the codebase.
-
-**Some pointers for filling out the section below:**  
-ERC20/ERC721/ERC777/FEE-ON-TRANSFER/REBASING TOKENS:  
-*Which tokens do you expect will interact with the smart contracts? Please note that these answers have a significant impact on the issues that will be submitted by Watsons. Please list specific tokens (ETH, USDC, DAI) where possible, otherwise "Any"/"None" type answers are acceptable as well.*
-
-ADMIN:
-*Admin/owner of the protocol/contracts.
-Label as TRUSTED, If you **don't** want to receive issues about the admin of the contract being able to steal funds. 
-If you want to receive issues about the Admin of the contract being able to steal funds, label as RESTRICTED & list specific acceptable/unacceptable actions for the admins.*
-
-EXTERNAL ADMIN:
-*These are admins of the protocols your contracts integrate with (if any). 
-If you **don't** want to receive issues about this Admin being able to steal funds or result in loss of funds, label as TRUSTED
-If you want to receive issues about this admin being able to steal or result in loss of funds, label as RESTRICTED.*
  
 ```
-DEPLOYMENT: [e.g. mainnet, Arbitrum, Optimism, ..]
-ERC20: [e.g. any, none, USDC, USDC and USDT]
-ERC721: [e.g. any, none, UNI-V3]
-ERC777: [e.g. any, none, {token name}]
-FEE-ON-TRANSFER: [e.g. any, none, {token name}]
-REBASING TOKENS: [e.g. any, none, {token name}]
-ADMIN: [trusted, restricted, n/a]
-EXTERNAL-ADMINS: [trusted, restricted, n/a]
+DEPLOYMENT: Currently Mainnet, considering Arbitrum and Optimisim in the near future.
+ERC20:  Any Non-Rebasing token. ex. USDC, DAI, USDT (future), wstETH, WETH, WBTC, FRAX, CRV, etc.
+ERC721: None
+ERC777: None
+FEE-ON-TRANSFER: None planned, some support for fee on transfer
+REBASING TOKENS: None, strictly prohibited due to balance tracking mechanism. Must use wrapped token versions.
+ADMIN: Trusted
+EXTERNAL-ADMINS: Trusted
 ```
-
 
 Please answer the following questions to provide more context: 
 ### Q: Are there any additional protocol roles? If yes, please explain in detail:
@@ -49,14 +41,30 @@ Please answer the following questions to provide more context:
 
 A: 
 
+1) [Notional Owner](https://etherscan.io/address/0x22341fB5D92D3d801144aA5A925F401A91418A05) is permitted to upgrade the contract and set governance parameters. It is a Gnosis multisig. It is expected to act in accordance with Snapshot votes from NOTE token holders.
+
+2) [Pause Guardian](https://etherscan.io/address/0xD9D5a9dc6a952b7aD6B05a983b399537B7c0Ee88) is permitted to downgrade the contract to the Pause Router in emergency scenarios. Only Notional Owner can upgrade the contract.
+
+3) [Notional Manager](https://etherscan.io/address/0x02479BFC7Dce53A02e26fE7baea45a0852CB0909) is permitted to set total fCash debt outstanding figures in the Migrate Prime Cash contract during the Notional V2 to Notional V3 migration. It is trusted that this manaager will set the proper values for total fCash debt, which can only be inspected off chain at the moment.
+
+3) [Treasury Manager](https://etherscan.io/address/0x53144559C0d4a3304e2DD9dAfBD685247429216d) is a smart contract that is permitted to claim COMP incentives, withdraw excess fee reserves to the protocol, and rebalance invested money market tokens. It is only permitted to do a handful of actions allowed by the Treasury Action contract.
+
+
 ___
 ### Q: Is the code/contract expected to comply with any EIPs? Are there specific assumptions around adhering to those EIPs that Watsons should be aware of?
-A:
+A: Yes. The Notional V3 Proxy should adhere to ERC1155 for fCash and vault tokens. Note that fCash is transferrable, while Vault tokens are not. Events for both fCash and Vault tokens should be properly emitted from Notional V3. Balances for both fCash and vault tokens should be query-able via Notional V3.
+
+The Notional V3 proxy will also deploy ERC20/ERC4626 compatible proxies for Prime Cash, nTokens and Prime Debt. All three should emit proper Transfer events for mints, burns and transfers. Existing Notional V2 nToken proxies do not emit proper Transfer events and cannot be upgraded. Full ERC4626 compatibility is not in this version (deposit, mint, withdraw, redeem are not fully functional) but view methods are implemented.
 
 ___
 
 ### Q: Please list any known issues/acceptable risks that should not result in a valid finding.
 A: 
+
+Common audit issues that have already been considered:
+
+- ETH transfers do not use .call() and use .transfer() instead. This mitigates re-entrancy and read-only re-entrancy issues.
+- Chainlink oracle prices are not validated to be stale on the main Notional V3 proxy. We have made the design choice to ensure that liquidations can proceed in the face of a stale Chainlink price over reverting due to a stale price.
 
 ____
 ### Q: Please provide links to previous audits (if any).
@@ -66,10 +74,16 @@ ___
 
 ### Q: Are there any off-chain mechanisms or off-chain procedures for the protocol (keeper bots, input validation expectations, etc)? 
 A: 
+
+1. Treasury Manager is expected to regularly run the rebalancing mechanism based on the rebalancing cool down time, currently expected to be once or twice a week.
+
+2. Liquidation bots are expected to be online, this is a reasonable expectation. Notional V2 has a robust liquidator community.
+
 _____
 
 ### Q: In case of external protocol integrations, are the risks of an external protocol pausing or executing an emergency withdrawal acceptable? If not, Watsons will submit issues related to these situations that can harm your protocol's functionality. 
-A: [ACCEPTABLE/NOT ACCEPTABLE] 
+
+A: Pausing is acceptable, emergency withdraws from the system would be strictly prohibited. This depends on the external money market that is integrated via IPrimeCashHoldingsOracles.
 
 
 # Audit scope
