@@ -92,8 +92,8 @@ A: Pausing is acceptable, emergency withdraws from the system would be strictly 
 
 # Running Tests
 
-1. Setup brownie and install hardhat (bin/setup.sh)
-2. Run tests: (bin/runTests.sh)
+1. Setup brownie and install hardhat (`bin/setup.sh`)
+2. Run tests: (`bin/runTests.sh`)
 
 There are a lot of tests and it make take awhile (it takes a few hours on my M2 Apple Silicon). You can run individual test files via `brownie test [path]` or add the decorator `@pytest.mark.only` to a function and run a file using `brownie test [path] -m only`
 
