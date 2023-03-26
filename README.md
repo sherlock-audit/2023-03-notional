@@ -7,12 +7,14 @@
 
 # Resources
 
+- [Notional V3 Blog Post](https://blog.notional.finance/introducing-notional-v3/)
 - [Notional V3 Specification](https://docs.google.com/document/d/1d2chGQ3TMxxhAweZ7OkBQtTWDp0iP2GOeEAPpJrey2E/edit?usp=sharing)
 - [Notional V3 Full Pull Request](https://github.com/notional-finance/contracts-v2/pull/107)
 - [Notional V3 Smart Contract Changes Only Diff](https://github.com/notional-finance/contracts-v2/pull/108)
 - [Notional V2 Docs](https://docs.notional.finance/notional-v2/)
 - [Notional V2 Technical Overview](https://www.youtube.com/watch?v=-8a5kY0QeYY&list=PLnKdM8f8QEJ2lJ59ZjhVCcJvrT056X0Ga)
 - [Notional V2 Technical Blog Posts](https://blog.notional.finance/tag/technical/)
+
 
 This is an upgrade to a fairly complex protocol that is running in production. A strong understanding of Notional V2 will definitely aid in understanding the changes. This [pull request](https://github.com/notional-finance/contracts-v2/pull/107) defines the full scope of changes to the protocol. 
 
