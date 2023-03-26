@@ -70,6 +70,7 @@ ____
 ### Q: Please provide links to previous audits (if any).
 A:
 
+https://github.com/notional-finance/contracts-v2/tree/master/audits
 ___
 
 ### Q: Are there any off-chain mechanisms or off-chain procedures for the protocol (keeper bots, input validation expectations, etc)? 
